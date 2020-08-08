@@ -1,0 +1,7 @@
+frontend/.next/
+frontend/out/
+
+node_modules/
+
+.DS_Store
+.vscode/
