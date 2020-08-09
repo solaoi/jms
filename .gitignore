@@ -5,3 +5,6 @@ node_modules/
 
 .DS_Store
 .vscode/
+
+# application database(sqlite3)
+jms.db

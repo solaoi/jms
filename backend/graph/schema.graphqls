@@ -1,0 +1,20 @@
+type Template {
+  id: ID!
+  title: String!
+  content: String!
+  created_at: String!
+  updated_at: String!
+}
+
+input NewTemplate {
+  title: String!
+  content: String!
+}
+
+type Mutation {
+  createTemplate(input: NewTemplate!): Template!
+}
+
+type Query {
+  templates: [Template!]!
+}
