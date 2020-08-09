@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import clsx from "clsx";
 import { useDrop } from "react-dnd";
+import { gql, useMutation } from "@apollo/client";
 import {
   AppBar,
   Badge,
@@ -42,6 +43,15 @@ import {
 } from "~/components/templates/template/add/TemplateElement";
 
 const SYSTEM_NAME = "JsonManagementSystem";
+
+const ADD_TEMPLATE = gql`
+  mutation createTemplate($title: String!, $content: String!) {
+    createTemplate(input: { title: $title, content: $content }) {
+      updated_at
+    }
+  }
+`;
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -146,6 +156,12 @@ const Main: FC = () => {
     },
   });
 
+  const [addTemplate] = useMutation(ADD_TEMPLATE, {
+    onCompleted: () => {
+      console.log("success!!");
+    },
+  });
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -177,7 +193,16 @@ const Main: FC = () => {
           </Typography>
           <IconButton color="inherit">
             <Badge badgeContent={4} color="secondary">
-              <Notifications />
+              <Notifications
+                onClick={() => {
+                  addTemplate({
+                    variables: {
+                      title: "test",
+                      content: JSON.stringify(state),
+                    },
+                  });
+                }}
+              />
             </Badge>
           </IconButton>
         </Toolbar>
