@@ -1,10 +1,11 @@
+# application builds
+backend/jms
 frontend/.next/
 frontend/out/
-
 node_modules/
+
+# application database (sqlite3)
+backend/jms.db
 
 .DS_Store
 .vscode/
-
-# application database(sqlite3)
-jms.db
