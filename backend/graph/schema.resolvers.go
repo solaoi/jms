@@ -7,8 +7,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/yuuu/gqlgen-echo-sample/graph/generated"
-	"github.com/yuuu/gqlgen-echo-sample/graph/model"
+	"github.com/solaoi/jms/graph/generated"
+	"github.com/solaoi/jms/graph/model"
 )
 
 func (r *mutationResolver) CreateTemplate(ctx context.Context, input model.NewTemplate) (*model.Template, error) {

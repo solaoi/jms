@@ -8,8 +8,8 @@ import (
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
-	"github.com/yuuu/gqlgen-echo-sample/graph"
-	"github.com/yuuu/gqlgen-echo-sample/graph/generated"
+	"github.com/solaoi/jms/graph"
+	"github.com/solaoi/jms/graph/generated"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
