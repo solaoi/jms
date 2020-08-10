@@ -29,7 +29,7 @@ cd backend/ && goose down
 ```
 
 ## UPDATE GRAPHQL SCHEMA
-```
+```zsh
 vi backend/graph/schema.graphqls
 
 # reflect this schema.graphqls changes
