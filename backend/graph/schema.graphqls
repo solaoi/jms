@@ -1,5 +1,5 @@
 type Template {
-  id: ID!
+  id: Int!
   title: String!
   content: String!
   created_at: String!

@@ -26,11 +26,11 @@ func (r *mutationResolver) CreateTemplate(ctx context.Context, input model.NewTe
 }
 
 func (r *queryResolver) Templates(ctx context.Context) ([]*model.Template, error) {
-		templates := []*model.Template{}
+	templates := []*model.Template{}
 
-		r.DB.Find(&templates)
-	
-		return templates, nil
+	r.DB.Find(&templates)
+
+	return templates, nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

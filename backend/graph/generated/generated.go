@@ -12,9 +12,9 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
+	"github.com/solaoi/jms/graph/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
-	"github.com/solaoi/jms/graph/model"
 )
 
 // region    ************************** generated!.gotpl **************************
@@ -201,7 +201,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 
 var sources = []*ast.Source{
 	&ast.Source{Name: "graph/schema.graphqls", Input: `type Template {
-  id: ID!
+  id: Int!
   title: String!
   content: String!
   created_at: String!
@@ -217,11 +217,9 @@ type Mutation {
   createTemplate(input: NewTemplate!): Template!
 }
 
-# ここから追記
 type Query {
   templates: [Template!]!
-}
-# ここまで追記`, BuiltIn: false},
+}`, BuiltIn: false},
 }
 var parsedSchema = gqlparser.MustLoadSchema(sources...)
 
@@ -234,7 +232,7 @@ func (ec *executionContext) field_Mutation_createTemplate_args(ctx context.Conte
 	args := map[string]interface{}{}
 	var arg0 model.NewTemplate
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNNewTemplate2githubᚗcomᚋyuuuᚋgqlgenᚑechoᚑsampleᚋgraphᚋmodelᚐNewTemplate(ctx, tmp)
+		arg0, err = ec.unmarshalNNewTemplate2githubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐNewTemplate(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -331,7 +329,7 @@ func (ec *executionContext) _Mutation_createTemplate(ctx context.Context, field 
 	}
 	res := resTmp.(*model.Template)
 	fc.Result = res
-	return ec.marshalNTemplate2ᚖgithubᚗcomᚋyuuuᚋgqlgenᚑechoᚑsampleᚋgraphᚋmodelᚐTemplate(ctx, field.Selections, res)
+	return ec.marshalNTemplate2ᚖgithubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplate(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_templates(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -365,7 +363,7 @@ func (ec *executionContext) _Query_templates(ctx context.Context, field graphql.
 	}
 	res := resTmp.([]*model.Template)
 	fc.Result = res
-	return ec.marshalNTemplate2ᚕᚖgithubᚗcomᚋyuuuᚋgqlgenᚑechoᚑsampleᚋgraphᚋmodelᚐTemplateᚄ(ctx, field.Selections, res)
+	return ec.marshalNTemplate2ᚕᚖgithubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplateᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -466,9 +464,9 @@ func (ec *executionContext) _Template_id(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(int)
 	fc.Result = res
-	return ec.marshalNID2string(ctx, field.Selections, res)
+	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Template_title(ctx context.Context, field graphql.CollectedField, obj *model.Template) (ret graphql.Marshaler) {
@@ -2075,12 +2073,12 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) unmarshalNID2string(ctx context.Context, v interface{}) (string, error) {
-	return graphql.UnmarshalID(v)
+func (ec *executionContext) unmarshalNInt2int(ctx context.Context, v interface{}) (int, error) {
+	return graphql.UnmarshalInt(v)
 }
 
-func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.SelectionSet, v string) graphql.Marshaler {
-	res := graphql.MarshalID(v)
+func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
+	res := graphql.MarshalInt(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2089,7 +2087,7 @@ func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) unmarshalNNewTemplate2githubᚗcomᚋyuuuᚋgqlgenᚑechoᚑsampleᚋgraphᚋmodelᚐNewTemplate(ctx context.Context, v interface{}) (model.NewTemplate, error) {
+func (ec *executionContext) unmarshalNNewTemplate2githubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐNewTemplate(ctx context.Context, v interface{}) (model.NewTemplate, error) {
 	return ec.unmarshalInputNewTemplate(ctx, v)
 }
 
@@ -2107,11 +2105,11 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) marshalNTemplate2githubᚗcomᚋyuuuᚋgqlgenᚑechoᚑsampleᚋgraphᚋmodelᚐTemplate(ctx context.Context, sel ast.SelectionSet, v model.Template) graphql.Marshaler {
+func (ec *executionContext) marshalNTemplate2githubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplate(ctx context.Context, sel ast.SelectionSet, v model.Template) graphql.Marshaler {
 	return ec._Template(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNTemplate2ᚕᚖgithubᚗcomᚋyuuuᚋgqlgenᚑechoᚑsampleᚋgraphᚋmodelᚐTemplateᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Template) graphql.Marshaler {
+func (ec *executionContext) marshalNTemplate2ᚕᚖgithubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplateᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Template) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2135,7 +2133,7 @@ func (ec *executionContext) marshalNTemplate2ᚕᚖgithubᚗcomᚋyuuuᚋgqlgen�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNTemplate2ᚖgithubᚗcomᚋyuuuᚋgqlgenᚑechoᚑsampleᚋgraphᚋmodelᚐTemplate(ctx, sel, v[i])
+			ret[i] = ec.marshalNTemplate2ᚖgithubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplate(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -2148,7 +2146,7 @@ func (ec *executionContext) marshalNTemplate2ᚕᚖgithubᚗcomᚋyuuuᚋgqlgen�
 	return ret
 }
 
-func (ec *executionContext) marshalNTemplate2ᚖgithubᚗcomᚋyuuuᚋgqlgenᚑechoᚑsampleᚋgraphᚋmodelᚐTemplate(ctx context.Context, sel ast.SelectionSet, v *model.Template) graphql.Marshaler {
+func (ec *executionContext) marshalNTemplate2ᚖgithubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplate(ctx context.Context, sel ast.SelectionSet, v *model.Template) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
