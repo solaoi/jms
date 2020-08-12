@@ -2,11 +2,12 @@
 
 this is a WIP project.
 
-jms is the JsonManagementSystem.
+Jms is a JSON Management System.   
+This application is a tool to generate and serve JSON :)
 
 1. we make a form-template and a form.
-
 2. we get JSON from a form.
+3. we serve JSON.
 
 # DEVELOPMENT
 
