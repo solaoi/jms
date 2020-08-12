@@ -12,7 +12,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/solaoi/jms/graph/model"
+	"github.com/solaoi/jms/cmd/graph/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -232,7 +232,7 @@ func (ec *executionContext) field_Mutation_createTemplate_args(ctx context.Conte
 	args := map[string]interface{}{}
 	var arg0 model.NewTemplate
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNNewTemplate2githubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐNewTemplate(ctx, tmp)
+		arg0, err = ec.unmarshalNNewTemplate2githubᚗcomᚋsolaoiᚋjmsᚋcmdᚋgraphᚋmodelᚐNewTemplate(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -329,7 +329,7 @@ func (ec *executionContext) _Mutation_createTemplate(ctx context.Context, field 
 	}
 	res := resTmp.(*model.Template)
 	fc.Result = res
-	return ec.marshalNTemplate2ᚖgithubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplate(ctx, field.Selections, res)
+	return ec.marshalNTemplate2ᚖgithubᚗcomᚋsolaoiᚋjmsᚋcmdᚋgraphᚋmodelᚐTemplate(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_templates(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -363,7 +363,7 @@ func (ec *executionContext) _Query_templates(ctx context.Context, field graphql.
 	}
 	res := resTmp.([]*model.Template)
 	fc.Result = res
-	return ec.marshalNTemplate2ᚕᚖgithubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplateᚄ(ctx, field.Selections, res)
+	return ec.marshalNTemplate2ᚕᚖgithubᚗcomᚋsolaoiᚋjmsᚋcmdᚋgraphᚋmodelᚐTemplateᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2087,7 +2087,7 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 	return res
 }
 
-func (ec *executionContext) unmarshalNNewTemplate2githubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐNewTemplate(ctx context.Context, v interface{}) (model.NewTemplate, error) {
+func (ec *executionContext) unmarshalNNewTemplate2githubᚗcomᚋsolaoiᚋjmsᚋcmdᚋgraphᚋmodelᚐNewTemplate(ctx context.Context, v interface{}) (model.NewTemplate, error) {
 	return ec.unmarshalInputNewTemplate(ctx, v)
 }
 
@@ -2105,11 +2105,11 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) marshalNTemplate2githubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplate(ctx context.Context, sel ast.SelectionSet, v model.Template) graphql.Marshaler {
+func (ec *executionContext) marshalNTemplate2githubᚗcomᚋsolaoiᚋjmsᚋcmdᚋgraphᚋmodelᚐTemplate(ctx context.Context, sel ast.SelectionSet, v model.Template) graphql.Marshaler {
 	return ec._Template(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNTemplate2ᚕᚖgithubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplateᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Template) graphql.Marshaler {
+func (ec *executionContext) marshalNTemplate2ᚕᚖgithubᚗcomᚋsolaoiᚋjmsᚋcmdᚋgraphᚋmodelᚐTemplateᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Template) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2133,7 +2133,7 @@ func (ec *executionContext) marshalNTemplate2ᚕᚖgithubᚗcomᚋsolaoiᚋjms�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNTemplate2ᚖgithubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplate(ctx, sel, v[i])
+			ret[i] = ec.marshalNTemplate2ᚖgithubᚗcomᚋsolaoiᚋjmsᚋcmdᚋgraphᚋmodelᚐTemplate(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -2146,7 +2146,7 @@ func (ec *executionContext) marshalNTemplate2ᚕᚖgithubᚗcomᚋsolaoiᚋjms�
 	return ret
 }
 
-func (ec *executionContext) marshalNTemplate2ᚖgithubᚗcomᚋsolaoiᚋjmsᚋgraphᚋmodelᚐTemplate(ctx context.Context, sel ast.SelectionSet, v *model.Template) graphql.Marshaler {
+func (ec *executionContext) marshalNTemplate2ᚖgithubᚗcomᚋsolaoiᚋjmsᚋcmdᚋgraphᚋmodelᚐTemplate(ctx context.Context, sel ast.SelectionSet, v *model.Template) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")

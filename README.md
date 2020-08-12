@@ -14,7 +14,8 @@ jms is the JsonManagementSystem.
 
 ```zsh
 # backend
-cd backend/ && go run ./main.go
+cd backend/ && go build
+cd backend/ && ./jms run
 
 # frontend
 cd frontend/ && npm run dev
@@ -23,27 +24,27 @@ cd frontend/ && npm run dev
 ## MIGRATION
 ```zsh
 # Up migration
-cd backend/ && goose up
+cd backend/cmd/ && goose up
 # Down Migration
-cd backend/ && goose down
+cd backend/cmd/ && goose down
 ```
 
 ## UPDATE GRAPHQL SCHEMA
 ```zsh
-vi backend/graph/schema.graphqls
+vi backend/cmd/graph/schema.graphqls
 
 # reflect this schema.graphqls changes
-cd backend/ && gqlgen
+cd backend/cmd/ && gqlgen
 
 # fix resolver implementations in order to use gorm
-vi backend/graph/schema.resolvers.go
+vi backend/cmd/graph/schema.resolvers.go
 ```
 
 # BUILD
 
 ```zsh
 # backend
-cd backend/ && go build -o jms
+cd backend/ && go build
 
 # frontend
 cd frontend/ && npm run export
@@ -51,4 +52,10 @@ cd frontend/ && npm run export
 # example:
 npm i -g http-server
 cd frontend/out/ && http-server
+```
+
+# INSTALL
+
+```zsh
+cd backend/ && go install
 ```

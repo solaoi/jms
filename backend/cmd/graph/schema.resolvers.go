@@ -7,8 +7,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/solaoi/jms/graph/generated"
-	"github.com/solaoi/jms/graph/model"
+	"github.com/solaoi/jms/cmd/graph/generated"
+	"github.com/solaoi/jms/cmd/graph/model"
 )
 
 func (r *mutationResolver) CreateTemplate(ctx context.Context, input model.NewTemplate) (*model.Template, error) {
