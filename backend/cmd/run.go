@@ -23,14 +23,15 @@ var runCmd = &cobra.Command{
 
 This command launches our default browser
 and gives us a simple solution to generate JSON.`,
-	RunE: run,
+	Run: run,
 }
 
-func run(cmd *cobra.Command, args []string) error {
+func run(cmd *cobra.Command, args []string) {
 	db, err := gorm.Open("sqlite3", "jms.db")
 	if err != nil {
 		log.Fatalln(err)
 	}
+	defer db.Close()
 
 	e := echo.New()
 
@@ -61,8 +62,6 @@ func run(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		log.Fatalln(err)
 	}
-
-	return nil
 }
 
 func welcome() echo.HandlerFunc {

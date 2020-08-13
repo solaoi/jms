@@ -7,5 +7,7 @@ node_modules/
 # application database (sqlite3)
 backend/jms.db
 
+backend/public/
+
 .DS_Store
 .vscode/
