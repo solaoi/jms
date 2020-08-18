@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"path"
+	"os"
 	"log"
 	"net/http"
 
@@ -27,7 +29,18 @@ and gives us a simple solution to generate JSON.`,
 }
 
 func run(cmd *cobra.Command, args []string) {
-	db, err := gorm.Open("sqlite3", "jms.db")
+	currentDir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(currentDir)
+	}
+
+	var jmsDir = path.Join(currentDir, ".jms")
+	if f, err := os.Stat(jmsDir); os.IsNotExist(err) || !f.IsDir() {
+		log.Fatal("we should run jms init")
+	}
+
+	var jmsDb = path.Join(jmsDir, "jms.db")
+	db, err := gorm.Open("sqlite3", jmsDb)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -72,14 +85,4 @@ func welcome() echo.HandlerFunc {
 
 func init() {
 	rootCmd.AddCommand(runCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// runCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// runCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

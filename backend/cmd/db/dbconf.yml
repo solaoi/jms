@@ -1,5 +1,0 @@
-development:
-    driver:  sqlite3
-    dialect: sqlite3
-    open: jms.db
-    import: github.com/mattn/go-sqlite3

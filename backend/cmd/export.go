@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"path"
 	"os"
 	"log"
 	"encoding/json"
@@ -24,7 +25,18 @@ If we do not find the public directory, we make it!`,
 }
 
 func export(cmd *cobra.Command, args []string) {
-	db, err := gorm.Open("sqlite3", "jms.db")
+	currentDir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(currentDir)
+	}
+
+	var jmsDir = path.Join(currentDir, ".jms")
+	if f, err := os.Stat(jmsDir); os.IsNotExist(err) || !f.IsDir() {
+		log.Fatal("we should run jms init")
+	}
+
+	var jmsDb = path.Join(jmsDir, "jms.db")
+	db, err := gorm.Open("sqlite3", jmsDb)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -33,18 +45,15 @@ func export(cmd *cobra.Command, args []string) {
 	var template model.Template
 	db.Find(&template, 1)
 
-	currentDir, err := os.Getwd()
-	if err != nil {
-		log.Fatal(currentDir)
-	}
-	var publicDir = currentDir + "/public"
+	var publicDir = path.Join(currentDir, "public")
 	if f, err := os.Stat(publicDir); os.IsNotExist(err) || !f.IsDir() {
 		if err := os.Mkdir(publicDir, 0777); err != nil {
 			log.Fatal(err)
 		}
 	}
 
-	file, err := os.Create(publicDir + "/sample.json")
+	var sampleJson = path.Join(publicDir, "sample.json")
+	file, err := os.Create(sampleJson)
     if err != nil {
 		log.Fatal(err)
     }
@@ -59,14 +68,4 @@ func export(cmd *cobra.Command, args []string) {
 
 func init() {
 	rootCmd.AddCommand(exportCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// exportCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// exportCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
