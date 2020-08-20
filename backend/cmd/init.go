@@ -26,7 +26,7 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		currentDir, err := os.Getwd()
 		if err != nil {
-			log.Fatal(currentDir)
+			log.Fatal(err)
 		}
 
 		var jmsDir = path.Join(currentDir, ".jms")
@@ -35,7 +35,7 @@ to quickly create a Cobra application.`,
 				log.Fatal(err)
 			}
 		} else {
-			log.Fatal("No Need to init")
+			log.Fatal("we've already run jms init in the current dir")
 		}
 
 		var jmsDb = path.Join(jmsDir, "jms.db")

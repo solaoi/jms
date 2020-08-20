@@ -7,6 +7,7 @@ require (
 	github.com/agnivade/levenshtein v1.1.0 // indirect
 	github.com/denisenkom/go-mssqldb v0.0.0-20200620013148-b91950f658ec // indirect
 	github.com/dgryski/trifles v0.0.0-20200804210059-1708ec479c53 // indirect
+	github.com/elazarl/go-bindata-assetfs v1.0.1
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/jinzhu/gorm v1.9.15
 	github.com/jinzhu/now v1.1.1 // indirect

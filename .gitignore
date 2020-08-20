@@ -1,5 +1,7 @@
 # application builds
 backend/jms
+backend/out/
+backend/static/
 frontend/.next/
 frontend/out/
 node_modules/

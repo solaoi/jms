@@ -27,12 +27,12 @@ If we do not find the public directory, we make it!`,
 func export(cmd *cobra.Command, args []string) {
 	currentDir, err := os.Getwd()
 	if err != nil {
-		log.Fatal(currentDir)
+		log.Fatal(err)
 	}
 
 	var jmsDir = path.Join(currentDir, ".jms")
 	if f, err := os.Stat(jmsDir); os.IsNotExist(err) || !f.IsDir() {
-		log.Fatal("we should run jms init")
+		log.Fatal("we should run jms init at first")
 	}
 
 	var jmsDb = path.Join(jmsDir, "jms.db")

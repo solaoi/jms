@@ -22,12 +22,13 @@ cd backend/ && ./jms run
 cd frontend/ && npm run dev
 ```
 
-## MIGRATION
+## FRONTEND BINARIZE
+
 ```zsh
-# Up migration
-cd backend/cmd/ && goose up
-# Down Migration
-cd backend/cmd/ && goose down
+cd [root]
+npm run export --prefix frontend && 
+mv frontend/out backend/ &&
+go-bindata -pkg=static -o=backend/static/out.go -prefix=backend/ ./backend/out/...
 ```
 
 ## UPDATE GRAPHQL SCHEMA

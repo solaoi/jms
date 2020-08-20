@@ -1,6 +1,9 @@
 package cmd
 
 import (
+	"runtime"
+	"fmt"
+	"os/exec"
 	"path"
 	"os"
 	"log"
@@ -14,29 +17,33 @@ import (
 	"github.com/solaoi/jms/cmd/graph"
 	"github.com/solaoi/jms/cmd/graph/generated"
 
+	"github.com/solaoi/jms/lib"
+    "github.com/elazarl/go-bindata-assetfs"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+
+	"github.com/solaoi/jms/static"
 )
 
-var runCmd = &cobra.Command{
-	Use:   "run",
+var startCmd = &cobra.Command{
+	Use:   "start",
 	Short: "generate JSON with form and form-template",
 	Long: `generate JSON with form and form-template.
 
 This command launches our default browser
 and gives us a simple solution to generate JSON.`,
-	Run: run,
+	Run: start,
 }
 
-func run(cmd *cobra.Command, args []string) {
+func start(cmd *cobra.Command, args []string) {
 	currentDir, err := os.Getwd()
 	if err != nil {
-		log.Fatal(currentDir)
+		log.Fatal(err)
 	}
 
 	var jmsDir = path.Join(currentDir, ".jms")
 	if f, err := os.Stat(jmsDir); os.IsNotExist(err) || !f.IsDir() {
-		log.Fatal("we should run jms init")
+		log.Fatal("we should run jms init at first")
 	}
 
 	var jmsDb = path.Join(jmsDir, "jms.db")
@@ -52,7 +59,7 @@ func run(cmd *cobra.Command, args []string) {
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
 
-	e.GET("/", welcome())
+	e.GET("/welcome", welcome())
 
 	graphqlHandler := handler.NewDefaultServer(
 		generated.NewExecutableSchema(
@@ -71,10 +78,24 @@ func run(cmd *cobra.Command, args []string) {
 		return nil
 	})
 
+	e.Use(lib.ServeRoot("/", NewAssets("out")))
+
+	// TODO	フラグ管理
+	openbrowser("http://localhost:3000/template/add")
+
 	err = e.Start(":3000")
 	if err != nil {
 		log.Fatalln(err)
 	}
+}
+
+func NewAssets(root string) *assetfs.AssetFS {
+    return &assetfs.AssetFS{
+        Asset:     static.Asset,
+        AssetDir:  static.AssetDir,
+        AssetInfo: static.AssetInfo,
+        Prefix:    root,
+    }
 }
 
 func welcome() echo.HandlerFunc {
@@ -83,6 +104,24 @@ func welcome() echo.HandlerFunc {
 	}
 }
 
+func openbrowser(url string) {
+	var err error
+
+	switch runtime.GOOS {
+	case "linux":
+		err = exec.Command("xdg-open", url).Start()
+	case "windows":
+		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+	case "darwin":
+		err = exec.Command("open", url).Start()
+	default:
+		err = fmt.Errorf("unsupported platform")
+	}
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
 func init() {
-	rootCmd.AddCommand(runCmd)
+	rootCmd.AddCommand(startCmd)
 }
