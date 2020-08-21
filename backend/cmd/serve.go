@@ -1,9 +1,13 @@
 package cmd
 
 import (
-	"fmt"
-
+	"os"
+	"log"
+	"path"
 	"github.com/spf13/cobra"
+
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 var serveCmd = &cobra.Command{
@@ -15,9 +19,30 @@ and usage of using your command. For example:
 Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("serve called")
-	},
+	Run: serve,
+}
+
+func serve(cmd *cobra.Command, args []string) {
+	currentDir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var jmsDir = path.Join(currentDir, "public")
+	if f, err := os.Stat(jmsDir); os.IsNotExist(err) || !f.IsDir() {
+		log.Fatal("there is no public dir to serve...")
+	}
+
+	e := echo.New()
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Use(middleware.CORS())
+	e.Static("/", "public")
+	err = e.Start(":3000")
+	if err != nil {
+		log.Fatalln(err)
+	}
 }
 
 func init() {

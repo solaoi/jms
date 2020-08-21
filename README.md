@@ -14,11 +14,12 @@ This application is a tool to generate and serve JSON :)
 ## RUN
 
 ```zsh
-# backend
-cd backend/ && go build
-cd backend/ && ./jms run
+# *** BACKEND ***
+# we should frontend binarize firstly.
+# then run below commands
+cd backend/ && go build && ./jms init && ./jms start
 
-# frontend
+# *** FRONTEND ONLY ***
 cd frontend/ && npm run dev
 ```
 
@@ -45,10 +46,12 @@ vi backend/cmd/graph/schema.resolvers.go
 # BUILD
 
 ```zsh
-# backend
+# *** BACKEND ***
+# we should frontend binarize firstly.
+# then run below commands
 cd backend/ && go build
 
-# frontend
+# *** FRONTEND ONLY ***
 cd frontend/ && npm run export
 # then serve out/
 # example:
@@ -59,5 +62,7 @@ cd frontend/out/ && http-server
 # INSTALL
 
 ```zsh
+# we should frontend binarize firstly.
+# then run below commands
 cd backend/ && go install
 ```
