@@ -7,7 +7,6 @@ import (
 	"path"
 	"os"
 	"log"
-	"net/http"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
@@ -59,8 +58,6 @@ func start(cmd *cobra.Command, args []string) {
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
 
-	e.GET("/welcome", welcome())
-
 	graphqlHandler := handler.NewDefaultServer(
 		generated.NewExecutableSchema(
 			generated.Config{Resolvers: &graph.Resolver{DB: db}},
@@ -80,8 +77,9 @@ func start(cmd *cobra.Command, args []string) {
 
 	e.Use(lib.ServeRoot("/", NewAssets("out")))
 
-	// TODO	フラグ管理
-	openbrowser("http://localhost:3000/template/add")
+	if b, err := cmd.Flags().GetBool("open"); err == nil && b {
+		openbrowser("http://localhost:3000/template/add")
+	}
 
 	err = e.Start(":3000")
 	if err != nil {
@@ -96,12 +94,6 @@ func NewAssets(root string) *assetfs.AssetFS {
         AssetInfo: static.AssetInfo,
         Prefix:    root,
     }
-}
-
-func welcome() echo.HandlerFunc {
-	return func(c echo.Context) error {
-		return c.String(http.StatusOK, "Welcome!")
-	}
 }
 
 func openbrowser(url string) {
@@ -124,4 +116,5 @@ func openbrowser(url string) {
 
 func init() {
 	rootCmd.AddCommand(startCmd)
+	startCmd.Flags().BoolP("open", "o", false, "open browser automatically")
 }
