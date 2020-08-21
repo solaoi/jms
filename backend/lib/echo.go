@@ -27,6 +27,10 @@ func (b *binaryFileSystem) Open(name string) (http.File, error) {
         // Not found, try with .html
         if f, err := b.fs.Open(name + ".html"); err == nil {
             return f, nil
+		}
+		// Not found, try with .json
+		if f, err := b.fs.Open(name + ".json"); err == nil {
+            return f, nil
         }
     }
     return f, err
@@ -48,6 +52,10 @@ func BinaryFileSystem(fs *assetfs.AssetFS) *binaryFileSystem {
 
 func ServeRoot(urlPrefix string, fs *assetfs.AssetFS) echo.MiddlewareFunc {
 	return Serve(urlPrefix, BinaryFileSystem(fs))
+}
+
+func ServeRootSimple(urlPrefix string, fs http.FileSystem) echo.MiddlewareFunc {
+	return Serve(urlPrefix, &binaryFileSystem{fs})
 }
 
 // Serve Static returns a middleware handler that serves static files in the given directory.

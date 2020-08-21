@@ -4,10 +4,13 @@ import (
 	"os"
 	"log"
 	"path"
-	"github.com/spf13/cobra"
+	"net/http"
 
+	"github.com/spf13/cobra"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+
+	"github.com/solaoi/jms/lib"
 )
 
 var serveCmd = &cobra.Command{
@@ -38,7 +41,7 @@ func serve(cmd *cobra.Command, args []string) {
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 	e.Use(middleware.CORS())
-	e.Static("/", "public")
+	e.Use(lib.ServeRootSimple("/", http.Dir("public/")))
 	err = e.Start(":3000")
 	if err != nil {
 		log.Fatalln(err)
