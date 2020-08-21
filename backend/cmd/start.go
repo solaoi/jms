@@ -29,7 +29,7 @@ var startCmd = &cobra.Command{
 	Short: "generate JSON with form and form-template",
 	Long: `generate JSON with form and form-template.
 
-This command launches our default browser
+This command launches our default browser with --open option
 and gives us a simple solution to generate JSON.`,
 	Run: start,
 }
