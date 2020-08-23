@@ -17,7 +17,7 @@ This application is a tool to generate and serve JSON :)
 # *** BACKEND ***
 # we should frontend binarize firstly.
 # then run below commands
-cd backend/ && go build && ./jms init && ./jms start
+cd backend/ && go build && ((./jms init && ./jms start --open) || ./jms start --open)
 
 # *** FRONTEND ONLY ***
 cd frontend/ && npm run dev
@@ -28,6 +28,7 @@ cd frontend/ && npm run dev
 ```zsh
 cd [root]
 npm run export --prefix frontend && 
+rm -rf backend/out &&
 mv frontend/out backend/ &&
 go-bindata -pkg=static -o=backend/static/out.go -prefix=backend/ ./backend/out/...
 ```
